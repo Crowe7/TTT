@@ -24,6 +24,7 @@ body {
     gap: 200px;
     height: 30px;
     margin-bottom: 30px;
+    margin-top: 30px;
 
 }
 .player-buttons button{
@@ -31,14 +32,16 @@ body {
 }
 
 #gameBoard {
+    display: grid;
     height: 300px;
     width: 300px;
-    border: 1px solid black;
     grid-template:repeat(3, 1fr) / repeat(3, 1fr);
     margin-bottom: 90px;
 }
 
-
+.grid {
+    border: 1px solid black;
+}
 
 .flex-wrapper{
     display: flex;

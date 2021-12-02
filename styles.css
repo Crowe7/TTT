@@ -1,0 +1,55 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body {
+    display: flex;
+    font-family: 'Open Sans', sans-serif;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #e9ecef;
+}
+.header {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+    background-color: #d7e0e9;
+}
+
+
+
+.flex-wrapper{
+    display: flex;
+    flex: 1 0 auto;
+}
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #adb5bd;
+    color: black;
+}
+@keyframes spin{
+    from {transform: rotate(0deg)}
+    to {transform: rotate(360deg)}
+}
+.rotate{
+    transition: transform 1s;
+    padding-left: 5px;
+}
+.rotate:hover{
+    transform: rotate(360deg);
+}
+.footer i{
+    text-decoration: none;
+    color: rgb(34, 33, 33);
+    transition: font-size 1s, padding-left 1s;
+    font-size: 18px;
+}
+.footer i:hover {
+    font-size: 26px;
+    padding-left: 8px;
+}

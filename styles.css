@@ -18,11 +18,23 @@ body {
     background-color: #d7e0e9;
 }
 
+.player-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    height: 30px;
+    margin-top: 60px;
+
+}
+.player-buttons button{
+    padding: 5px;
+}
 
 
 .flex-wrapper{
     display: flex;
     flex: 1 0 auto;
+    justify-content: center;
 }
 .footer{
     display: flex;

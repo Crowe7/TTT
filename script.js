@@ -1,5 +1,6 @@
 const gameBoard = (() => {
     let _gameBoard = ["", "", "", "", "", "", "", "",""];
+    const DEFAULT_BOARD = _gameBoard;
 
     function  _makeBoard() {
         for(i = 1; i <= 9; i++) {
@@ -7,6 +8,9 @@ const gameBoard = (() => {
             square.classList.add('grid');
             square.setAttribute('id', i);
             document.querySelector('#gameBoard').appendChild(square);
+            
+            square.addEventListener('click', updateGameBoard);
+
         }
     }
     _makeBoard();
@@ -18,9 +22,35 @@ const gameBoard = (() => {
         }
     }
     
+
+
+    function updateGameBoard(sign) {
+        console.log(_gameBoard[this.id - 1]);
+        if(_gameBoard[this.id - 1] !== "") {
+            return;
+        }
+        sign = whatSign();
+        _gameBoard[this.id - 1] = sign;
+        console.log(_gameBoard);
+        displayController.currentPlayer();
+        displayCurrentBoard();
+
+    }
+
+
+    function whatSign() {
+        if(displayController.p1.classList.contains('on')) {
+            return 'X'
+        }
+        else {
+            return "O";
+        }
+    }
+
+
     return {
         displayCurrentBoard,
-
+        updateGameBoard,
     }
 
 })();
@@ -62,11 +92,13 @@ const displayController = (() => {
             p1.classList.add('on');
             if(p2.classList.contains('on')) {
                 p2.classList.remove('on');
+                return 'O'
             }
         }
         else {
             p2.classList.add('on')
             p1.classList.remove('on');
+            return 'X'
         }
     }
 
@@ -75,6 +107,7 @@ const displayController = (() => {
     return {
         p1,
         p2,
+        currentPlayer,
     }
 
 })();
@@ -87,29 +120,21 @@ const playRound = (() => {
     function playTurn() {
         if(turnCounter % 2 === 0) {
             turn = player1.sign;
-            console.log(turn)
         }
         else {
             turn = player2.sign;
-            console.log(turn);
         }
         turnCounter++
         return turn;
     }
+
 
     return {
         playTurn,
     }
 })();
 
-function currentPlayer() {
-    if(playRound.playTurn() === 'X') {
-        console.log('e');
-    }
-    else {
-        console.log(playRound.playTurn);
-    }
-}
+
 
 // maybe add a function to gameboard that allows the ability to pass a param based on div clicked
 // and what player to change the array and then run displaycurrntboard

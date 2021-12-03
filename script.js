@@ -2,7 +2,7 @@ const gameBoard = (() => {
     let _gameBoard = ["", "", "", "", "", "", "", "",""];
     const DEFAULT_BOARD = _gameBoard;
 
-    function  _makeBoard() {
+    function  makeBoard() {
         for(i = 1; i <= 9; i++) {
             let square = document.createElement('div');
             square.classList.add('grid');
@@ -13,7 +13,6 @@ const gameBoard = (() => {
 
         }
     }
-    _makeBoard();
 
     function displayCurrentBoard() {
         let square = document.querySelectorAll('.grid');
@@ -25,7 +24,7 @@ const gameBoard = (() => {
 
 
     function updateGameBoard(sign) {
-        console.log(_gameBoard[this.id - 1]);
+
         if(_gameBoard[this.id - 1] !== "") {
             return;
         }
@@ -50,7 +49,7 @@ const gameBoard = (() => {
 
     return {
         displayCurrentBoard,
-        updateGameBoard,
+        makeBoard,
     }
 
 })();
@@ -81,10 +80,12 @@ const displayController = (() => {
     p1.addEventListener('click', () => {
         setPlayer(p1);
         currentPlayer();
+        gameBoard.makeBoard();
     });
     p2.addEventListener('click', () => {
         setPlayer();
         currentPlayer();
+        gameBoard.makeBoard();
     });
 
     function currentPlayer() {
@@ -127,6 +128,7 @@ const playRound = (() => {
         turnCounter++
         return turn;
     }
+
 
 
     return {

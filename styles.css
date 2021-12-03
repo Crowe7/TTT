@@ -40,8 +40,18 @@ body {
 }
 
 .grid {
+    display: flex;
     border: 1px solid black;
+    font-size: 60px;
+    justify-content: center;
+    align-items: center;
 }
+.grid:hover {
+    background-color: rgb(224, 224, 224);
+}
+
+
+
 
 .flex-wrapper{
     display: flex;

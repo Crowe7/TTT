@@ -196,26 +196,9 @@ const playRound = (() => {
 
 
 
-// maybe add a function to gameboard that allows the ability to pass a param based on div clicked
-// and what player to change the array and then run displaycurrntboard
-
-//display controller will be the "victory screen" and the player buttons and reset button 
-//will also but a border around the current players button 
 
 //TODO ADD RESET FUNTIONALITY
 
+//TODO ADD COMPUTER PLAYER
 
-
-
-/*  
-    //HARD CODE WIN :(
-    const WINNING_MOVES = 
-        [[0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]];
- */
+// TODO CLEAN STYLES UP

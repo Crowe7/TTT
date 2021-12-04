@@ -2,6 +2,38 @@ const gameBoard = (() => {
     let _gameBoard = ["", "", "", "", "", "", "", "",""];
     const DEFAULT_BOARD = _gameBoard;
 
+    
+        const WINNING_MOVES = 
+        [[0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]];
+
+
+    function checkForWin() {
+
+        for(i = 0; i <=7; i++) {
+           winCondition = WINNING_MOVES[i];
+           let a = _gameBoard[winCondition[0]];
+           let b = _gameBoard[winCondition[1]];
+           let c = _gameBoard[winCondition[2]];
+
+           if(a === "" || b === "" || c === "") {
+                continue;
+           }
+           
+           else if(a === b && a === c) {
+               alert('win');
+               return true;
+           }
+        }
+        return false
+    }
+
     function  makeBoard() {
         for(i = 1; i <= 9; i++) {
             let square = document.createElement('div');
@@ -33,17 +65,18 @@ const gameBoard = (() => {
         console.log(_gameBoard);
         displayController.currentPlayer();
         displayCurrentBoard();
+        checkForWin();
 
     }
 
     return {
         displayCurrentBoard,
         makeBoard,
+        checkForWin,
     }
 
 })();
 
-// gameBoard.displayCurrentBoard();
 
 const Player = (sign) => {
 
@@ -92,8 +125,6 @@ const displayController = (() => {
 
 
     return {
-        p1,
-        p2,
         currentPlayer,
     }
 
@@ -102,7 +133,7 @@ const displayController = (() => {
 const playRound = (() => {
     const player1 = Player("X");
     const player2 = Player("O");
-    let turnCounter = 2;
+    let turnCounter = 0;
 
     function playTurn() {
         if(turnCounter % 2 === 0) {
@@ -114,10 +145,17 @@ const playRound = (() => {
             console.log(turn);
         }
         turnCounter++
+        if(turnCounter === 9) {
+            checkForTie();
+        }
         return turn;
     }
 
-
+    function checkForTie() {
+        if(gameBoard.checkForWin() === false) {
+            alert('TIE');
+        }
+    }
 
 
     return {
@@ -125,7 +163,7 @@ const playRound = (() => {
     }
 })();
 
-// const WinningMoves = (array) 
+
 
 // maybe add a function to gameboard that allows the ability to pass a param based on div clicked
 // and what player to change the array and then run displaycurrntboard
@@ -138,4 +176,15 @@ const playRound = (() => {
 
 
 
-//
+/*  
+    //HARD CODE WIN :(
+    const WINNING_MOVES = 
+        [[0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]];
+ */

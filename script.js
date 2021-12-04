@@ -27,8 +27,7 @@ const gameBoard = (() => {
            }
            
            else if(a === b && a === c) {
-               alert('win');
-               return true;
+               displayController.displayResult(a);
            }
         }
         return false
@@ -84,9 +83,11 @@ const Player = (sign) => {
 };
 
 const displayController = (() => {
+    let resultText = document.querySelector('#result');
     let p1 = document.querySelector('#player1');
     let p2 = document.querySelector('#player2');
     let reset = document.querySelector('#reset');
+    let modalReset = document.querySelector('#resetTwo');
     let gameStatus = false;
 
     function setPlayer(player) {
@@ -121,11 +122,41 @@ const displayController = (() => {
             p1.classList.toggle('on');
         }
     }
-
-
+    function displayResult(result) {
+        if(result === 'tie') {
+            resultText.innerText = "CAT GAME!";
+            modal.style.display = 'block';
+        }
+        else if(result === 'X') {
+           if(p1.innerText === 'YOU') {
+               resultText.innerText = "YOU WIN!";
+           }
+           else {
+               resultText.innerText = "COMPUTER WINS!";
+           }
+           modal.style.display = 'block';
+        }
+        else {
+            if(p2.innerText === 'YOU') {
+                resultText.innerText = "YOU WIN!";
+            }
+            else {
+                resultText.innerText = "COMPUTER WINS!";
+            }
+            modal.style.display = 'block';
+        }
+    }
+    //WINNER DISPLAY MODAL
+    let modal = document.querySelector('#modalID');
+    window.addEventListener('click', (e) => {
+        if(e.target=== modal) {
+            modal.style.display = 'none';
+        }
+    });
 
     return {
         currentPlayer,
+        displayResult,
     }
 
 })();
@@ -153,7 +184,7 @@ const playRound = (() => {
 
     function checkForTie() {
         if(gameBoard.checkForWin() === false) {
-            alert('TIE');
+            displayController.displayResult('tie');
         }
     }
 

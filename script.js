@@ -1,6 +1,6 @@
 const gameBoard = (() => {
     let _gameBoard = ["", "", "", "", "", "", "", "",""];
-    const DEFAULT_BOARD = ["", "", "", "", "", "", "", "",""];
+
 
     
         const WINNING_MOVES = 
@@ -76,8 +76,9 @@ const gameBoard = (() => {
     }
 
     function reset() {
-        _gameBoard = DEFAULT_BOARD;
+        _gameBoard = ["", "", "", "", "", "", "", "",""];
         deleteBoard();
+        console.log(_gameBoard);
     }
 
     return {
@@ -222,11 +223,9 @@ const playRound = (() => {
     function playTurn() {
         if(turnCounter % 2 === 0) {
             turn = player1.sign;
-            console.log(turn);
         }
         else {
             turn = player2.sign;
-            console.log(turn);
         }
         turnCounter++
         if(turnCounter === 9) {

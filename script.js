@@ -126,6 +126,11 @@ const displayController = (() => {
         gameBoard.makeBoard();
         disableButton();       
     });
+
+    modalReset.addEventListener('click', () => {
+        resetGame();
+        modal.style.display = 'none';
+    });
     reset.addEventListener('click', resetGame);
 
 
@@ -164,6 +169,9 @@ const displayController = (() => {
         }
     }
     function disableButton() {
+        if(gameStatus === false) {
+            return 
+        }
         if(p1.disabled === false || p2.disabled === false) {
             p1.disabled = true;
             p2.disabled = true;
@@ -176,7 +184,6 @@ const displayController = (() => {
     function displayReset() {
         p1.textContent = "PLAYER 1";
         p2.textContent = "PLAYER 2";
-        gameStatus = false;
         if(p1.classList.contains('on')) {
             p1.classList.remove('on');
         }
@@ -190,6 +197,7 @@ const displayController = (() => {
         displayReset();
         playRound.reset();
         gameBoard.reset();
+        gameStatus = false;
     }
     //WINNER DISPLAY MODAL
     let modal = document.querySelector('#modalID');

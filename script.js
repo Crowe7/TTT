@@ -28,24 +28,13 @@ const gameBoard = (() => {
         if(_gameBoard[this.id - 1] !== "") {
             return;
         }
-        sign = whatSign();
+        sign = playRound.playTurn();
         _gameBoard[this.id - 1] = sign;
         console.log(_gameBoard);
         displayController.currentPlayer();
         displayCurrentBoard();
 
     }
-
-
-    function whatSign() {
-        if(displayController.p1.classList.contains('on')) {
-            return 'X'
-        }
-        else {
-            return "O";
-        }
-    }
-
 
     return {
         displayCurrentBoard,
@@ -65,6 +54,7 @@ const displayController = (() => {
     let p1 = document.querySelector('#player1');
     let p2 = document.querySelector('#player2');
     let reset = document.querySelector('#reset');
+    let gameStatus = false;
 
     function setPlayer(player) {
         if(player === p1) {
@@ -89,17 +79,13 @@ const displayController = (() => {
     });
 
     function currentPlayer() {
-        if(playRound.playTurn() === 'X') {
+        if(gameStatus === false) {
             p1.classList.add('on');
-            if(p2.classList.contains('on')) {
-                p2.classList.remove('on');
-                return 'O'
-            }
+            gameStatus = true;
         }
         else {
-            p2.classList.add('on')
-            p1.classList.remove('on');
-            return 'X'
+            p2.classList.toggle('on');
+            p1.classList.toggle('on');
         }
     }
 
@@ -121,13 +107,16 @@ const playRound = (() => {
     function playTurn() {
         if(turnCounter % 2 === 0) {
             turn = player1.sign;
+            console.log(turn);
         }
         else {
             turn = player2.sign;
+            console.log(turn);
         }
         turnCounter++
         return turn;
     }
+
 
 
 
@@ -136,7 +125,7 @@ const playRound = (() => {
     }
 })();
 
-
+// const WinningMoves = (array) 
 
 // maybe add a function to gameboard that allows the ability to pass a param based on div clicked
 // and what player to change the array and then run displaycurrntboard

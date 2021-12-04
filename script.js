@@ -1,6 +1,6 @@
 const gameBoard = (() => {
     let _gameBoard = ["", "", "", "", "", "", "", "",""];
-    const DEFAULT_BOARD = _gameBoard;
+    const DEFAULT_BOARD = ["", "", "", "", "", "", "", "",""];
 
     
         const WINNING_MOVES = 
@@ -45,6 +45,13 @@ const gameBoard = (() => {
         }
     }
 
+    function deleteBoard() {
+        let gameBoard = document.querySelector('#gameBoard');
+        while(gameBoard.lastChild != undefined) {
+            gameBoard.lastChild.remove()
+        }
+    }
+
     function displayCurrentBoard() {
         let square = document.querySelectorAll('.grid');
         for(i = 0; i <= 8; i++) {
@@ -68,10 +75,16 @@ const gameBoard = (() => {
 
     }
 
+    function reset() {
+        _gameBoard = DEFAULT_BOARD;
+        deleteBoard();
+    }
+
     return {
         displayCurrentBoard,
         makeBoard,
         checkForWin,
+        reset,
     }
 
 })();
@@ -105,12 +118,16 @@ const displayController = (() => {
         setPlayer(p1);
         currentPlayer();
         gameBoard.makeBoard();
+        disableButton();
     });
     p2.addEventListener('click', () => {
         setPlayer();
         currentPlayer();
         gameBoard.makeBoard();
+        disableButton();       
     });
+    reset.addEventListener('click', resetGame);
+
 
     function currentPlayer() {
         if(gameStatus === false) {
@@ -145,6 +162,34 @@ const displayController = (() => {
             }
             modal.style.display = 'block';
         }
+    }
+    function disableButton() {
+        if(p1.disabled === false || p2.disabled === false) {
+            p1.disabled = true;
+            p2.disabled = true;
+        }
+        else {
+            p1.disabled = false;
+            p2.disabled = false;
+        }
+    }
+    function displayReset() {
+        p1.textContent = "PLAYER 1";
+        p2.textContent = "PLAYER 2";
+        gameStatus = false;
+        if(p1.classList.contains('on')) {
+            p1.classList.remove('on');
+        }
+        if(p2.classList.contains('on')) {
+            p2.classList.remove('on');
+        }
+        disableButton();
+    }
+
+    function resetGame() {
+        displayReset();
+        playRound.reset();
+        gameBoard.reset();
     }
     //WINNER DISPLAY MODAL
     let modal = document.querySelector('#modalID');
@@ -188,9 +233,13 @@ const playRound = (() => {
         }
     }
 
+    function reset() {
+        turnCounter = 0;
+    }
 
     return {
         playTurn,
+        reset,
     }
 })();
 

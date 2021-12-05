@@ -81,6 +81,8 @@ const gameBoard = (() => {
         console.log(_gameBoard);
     }
 
+
+
     return {
         displayCurrentBoard,
         makeBoard,
@@ -125,7 +127,7 @@ const displayController = (() => {
         setPlayer();
         currentPlayer();
         gameBoard.makeBoard();
-        disableButton();       
+        disableButton();
     });
 
     modalReset.addEventListener('click', () => {
@@ -205,12 +207,15 @@ const displayController = (() => {
     window.addEventListener('click', (e) => {
         if(e.target=== modal) {
             modal.style.display = 'none';
+            resetGame();
         }
     });
 
     return {
         currentPlayer,
         displayResult,
+        p1,
+        p2,
     }
 
 })();
@@ -218,6 +223,7 @@ const displayController = (() => {
 const playRound = (() => {
     const player1 = Player("X");
     const player2 = Player("O");
+    let computer = undefined;
     let turnCounter = 0;
 
     function playTurn() {
@@ -244,10 +250,27 @@ const playRound = (() => {
         turnCounter = 0;
     }
 
+    function computerPlay() {
+
+        if(displayController.p1.textContent === 'CPU') {
+            computer = player1;
+        }
+        else {
+            computer = player2;
+        }
+        console.log(computer.sign);
+    }
+    computerPlay();
+
+
     return {
         playTurn,
         reset,
+        computerPlay,
     }
+
+
+
 })();
 
 

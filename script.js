@@ -75,7 +75,6 @@ const gameBoard = (() => {
         }
         sign = playRound.playTurn();
         _gameBoard[this.id - 1] = sign;
-        console.log(_gameBoard);
         displayController.currentPlayer();
         displayCurrentBoard();
         if(checkForWin() === false) {
@@ -87,7 +86,6 @@ const gameBoard = (() => {
     function reset() {
         _gameBoard = ["", "", "", "", "", "", "", "",""];
         deleteBoard();
-        console.log(_gameBoard);
     }
 
    async function computerInput() {
@@ -303,7 +301,6 @@ const playRound = (() => {
         if(turnCounter === 9) {
             checkForTie();
         }
-        console.log(turnCounter);
         return turn;
     }
 
@@ -348,14 +345,3 @@ const playRound = (() => {
 
 
 })();
-
-
-
-
-//TODO ADD RESET FUNTIONALITY
-
-//TODO ADD COMPUTER PLAYER
-
-// TODO CLEAN STYLES UP
-
-// await new Promise(r => setTimeout(r, 500));

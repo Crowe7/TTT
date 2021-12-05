@@ -60,7 +60,7 @@ const gameBoard = (() => {
     }
     
 
-
+    // ALSO PLAYS COMPUTER TURN :(
     function updateGameBoard(sign) {
 
         if(_gameBoard[this.id - 1] !== "") {
@@ -72,7 +72,7 @@ const gameBoard = (() => {
         displayController.currentPlayer();
         displayCurrentBoard();
         checkForWin();
-
+        computerInput();
     }
 
     function reset() {
@@ -81,13 +81,25 @@ const gameBoard = (() => {
         console.log(_gameBoard);
     }
 
-
+    function computerInput() {
+        let arrayRandom = Math.floor(Math.random() * 9);
+        if(_gameBoard[arrayRandom] != "") {
+            computerInput();
+        }
+        else {
+            _gameBoard[arrayRandom] = playRound.playTurn();
+            displayController.currentPlayer();
+            displayCurrentBoard();
+            checkForWin();    
+        }
+    }
 
     return {
         displayCurrentBoard,
         makeBoard,
         checkForWin,
         reset,
+        computerInput,
     }
 
 })();
@@ -128,6 +140,7 @@ const displayController = (() => {
         currentPlayer();
         gameBoard.makeBoard();
         disableButton();
+        gameBoard.computerInput();
     });
 
     modalReset.addEventListener('click', () => {
@@ -250,7 +263,7 @@ const playRound = (() => {
         turnCounter = 0;
     }
 
-    function computerPlay() {
+    function computerPlayer() {
 
         if(displayController.p1.textContent === 'CPU') {
             computer = player1;
@@ -258,15 +271,15 @@ const playRound = (() => {
         else {
             computer = player2;
         }
-        console.log(computer.sign);
+        return computer
     }
-    computerPlay();
+
 
 
     return {
         playTurn,
         reset,
-        computerPlay,
+        computerPlayer,
     }
 
 

@@ -96,9 +96,9 @@ const gameBoard = (() => {
             computerInput();
         }
         else {
-            _gameBoard[arrayRandom] = playRound.playTurn();
             // WAITS HALF A SECOND BEFORE CPU PUTS MOVE DOWN
             await new Promise(r => setTimeout(r, 500));
+            _gameBoard[arrayRandom] = playRound.playTurn();
             displayController.currentPlayer();
             displayCurrentBoard();
             checkForWin();
@@ -328,6 +328,7 @@ const playRound = (() => {
         playTurn,
         reset,
         computerPlayer,
+        turnCounter,
     }
 
 

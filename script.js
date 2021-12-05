@@ -28,6 +28,7 @@ const gameBoard = (() => {
            
            else if(a === b && a === c) {
                displayController.displayResult(a);
+               return true;
            }
         }
         return false
@@ -71,8 +72,9 @@ const gameBoard = (() => {
         console.log(_gameBoard);
         displayController.currentPlayer();
         displayCurrentBoard();
-        checkForWin();
-        computerInput();
+        if(checkForWin() === false) {
+            computerInput();
+        }
     }
 
     function reset() {
@@ -81,16 +83,17 @@ const gameBoard = (() => {
         console.log(_gameBoard);
     }
 
-    function computerInput() {
+   async function computerInput() {
         let arrayRandom = Math.floor(Math.random() * 9);
         if(_gameBoard[arrayRandom] != "") {
             computerInput();
         }
         else {
             _gameBoard[arrayRandom] = playRound.playTurn();
+            await new Promise(r => setTimeout(r, 500));
             displayController.currentPlayer();
             displayCurrentBoard();
-            checkForWin();    
+            checkForWin();
         }
     }
 

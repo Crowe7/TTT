@@ -13,7 +13,7 @@ const gameBoard = (() => {
         [0, 4, 8],
         [2, 4, 6]];
 
-
+    //ALSO UPDATES DISPLAY WINS
     function checkForWin() {
 
         for(i = 0; i <=7; i++) {
@@ -28,6 +28,12 @@ const gameBoard = (() => {
            
            else if(a === b && a === c) {
                displayController.displayResult(a);
+               if(a === playRound.computerPlayer().sign) {
+                    displayController.displayWins('CPU');
+               }
+               else {
+                   displayController.displayWins('YOU');
+               }
                return true;
            }
         }
@@ -75,6 +81,7 @@ const gameBoard = (() => {
         if(checkForWin() === false) {
             computerInput();
         }
+
     }
 
     function reset() {
@@ -90,6 +97,7 @@ const gameBoard = (() => {
         }
         else {
             _gameBoard[arrayRandom] = playRound.playTurn();
+            // WAITS HALF A SECOND BEFORE CPU PUTS MOVE DOWN
             await new Promise(r => setTimeout(r, 500));
             displayController.currentPlayer();
             displayCurrentBoard();
@@ -120,6 +128,27 @@ const displayController = (() => {
     let reset = document.querySelector('#reset');
     let modalReset = document.querySelector('#resetTwo');
     let gameStatus = false;
+    let playerWinsCounter = document.querySelector('#playerWins');
+    let computerWinsCounter = document.querySelector('#computerWins');
+    let playerWins = 0;
+    let computerWins = 0;
+
+
+    function displayWins(winner) {
+        if(winner === 'YOU') {
+            playerWins++;
+            playerWinsCounter.textContent = 'PLAYER WINS:' + " " + playerWins;
+        }
+        else if(winner === 'CPU') {
+            computerWins++;
+            computerWinsCounter.textContent = "COMPUTER WINS:" + " " + computerWins;
+        }
+        else {
+            playerWinsCounter.textContent = 'PLAYER WINS:' + " " + playerWins;
+            computerWinsCounter.textContent = "COMPUTER WINS:" + " " + computerWins;
+        }
+    }
+    displayWins();
 
     function setPlayer(player) {
         if(player === p1) {
@@ -131,12 +160,13 @@ const displayController = (() => {
             p1.innerText = 'CPU';
         }
     }
-
+    // ADDS THE MAKING OF THE BOARD AND PLAYS COMPUTER TURN IF PLAYER DECIDES TO GO LAST
     p1.addEventListener('click', () => {
         setPlayer(p1);
         currentPlayer();
         gameBoard.makeBoard();
         disableButton();
+        playRound.computerPlayer();
     });
     p2.addEventListener('click', () => {
         setPlayer();
@@ -144,12 +174,10 @@ const displayController = (() => {
         gameBoard.makeBoard();
         disableButton();
         gameBoard.computerInput();
+        playRound.computerPlayer();
     });
 
-    modalReset.addEventListener('click', () => {
-        resetGame();
-        modal.style.display = 'none';
-    });
+
     reset.addEventListener('click', resetGame);
 
 
@@ -212,22 +240,39 @@ const displayController = (() => {
         disableButton();
     }
 
-    function resetGame() {
+    function resetGame(roundOrGame) {
         displayReset();
         playRound.reset();
         gameBoard.reset();
         gameStatus = false;
+
+        if(roundOrGame === 'round') {
+            return;
+        }
+        else {
+            playerWins = 0;
+            computerWins = 0;
+            displayWins();
+        }
+
     }
     //WINNER DISPLAY MODAL
+
+    modalReset.addEventListener('click', () => {
+        resetGame('round');
+        modal.style.display = 'none';
+    });
+
     let modal = document.querySelector('#modalID');
     window.addEventListener('click', (e) => {
         if(e.target=== modal) {
             modal.style.display = 'none';
-            resetGame();
+            resetGame('round');
         }
     });
 
     return {
+        displayWins,
         currentPlayer,
         displayResult,
         p1,

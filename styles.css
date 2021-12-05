@@ -55,6 +55,12 @@ body {
     border: 2px solid blue;
 }
 
+.rounds-won {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
 .modal {
     display: none;
     position: fixed;

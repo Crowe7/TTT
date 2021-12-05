@@ -93,12 +93,17 @@ const gameBoard = (() => {
    async function computerInput() {
         let arrayRandom = Math.floor(Math.random() * 9);
         if(_gameBoard[arrayRandom] != "") {
+            if(playRound.fakeThink() === false) {
+                return
+            }
             computerInput();
         }
         else {
             _gameBoard[arrayRandom] = playRound.playTurn();
             // WAITS HALF A SECOND BEFORE CPU PUTS MOVE DOWN
-            await new Promise(r => setTimeout(r, 500));
+            if(playRound.fakeThink() === true) {
+                await new Promise(r => setTimeout(r, 500));
+            }
             displayController.currentPlayer();
             displayCurrentBoard();
             checkForWin();
@@ -298,6 +303,7 @@ const playRound = (() => {
         if(turnCounter === 9) {
             checkForTie();
         }
+        console.log(turnCounter);
         return turn;
     }
 
@@ -322,12 +328,21 @@ const playRound = (() => {
         return computer
     }
 
+    function fakeThink() {
+        if(turnCounter < 9) {
+            return true
+        }
+        else {
+            return false
+        }
 
-
+    }
+    
     return {
         playTurn,
         reset,
         computerPlayer,
+        fakeThink,
     }
 
 
@@ -342,3 +357,5 @@ const playRound = (() => {
 //TODO ADD COMPUTER PLAYER
 
 // TODO CLEAN STYLES UP
+
+// await new Promise(r => setTimeout(r, 500));

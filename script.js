@@ -1,7 +1,6 @@
 const gameBoard = (() => {
     let _gameBoard = ["", "", "", "", "", "", "", "",""];
 
-
     
         const WINNING_MOVES = 
         [[0, 1, 2],
@@ -27,7 +26,9 @@ const gameBoard = (() => {
            }
            
            else if(a === b && a === c) {
+
                displayController.displayResult(a);
+               playRound.stopExtraWins(true);
                if(a === playRound.computerPlayer().sign) {
                     displayController.displayWins('CPU');
                }
@@ -122,6 +123,9 @@ const gameBoard = (() => {
             }
             displayController.currentPlayer();
             displayCurrentBoard();
+            if(playRound.stopExtraWins() === true) {
+                return
+            } 
             checkForWin();
         }
     }
@@ -305,6 +309,7 @@ const displayController = (() => {
 const playRound = (() => {
     const player1 = Player("X");
     const player2 = Player("O");
+    let win = false;
     let computer = undefined;
     let turnCounter = 0;
 
@@ -330,6 +335,7 @@ const playRound = (() => {
 
     function reset() {
         turnCounter = 0;
+        win = false;
     }
 
     function computerPlayer() {
@@ -352,12 +358,22 @@ const playRound = (() => {
         }
 
     }
+
+    function stopExtraWins(bool) {
+        if(bool === true) {
+            win = true;
+            return win;
+        }
+        return win;
+
+    }
     
     return {
         playTurn,
         reset,
         computerPlayer,
         fakeThink,
+        stopExtraWins,
     }
 
 

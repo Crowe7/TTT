@@ -49,6 +49,18 @@ body {
 }
 
 
+#playerWins {
+    font-size: 20px;
+    border-bottom: 3px solid #93a8ac;
+    border-radius: 15%;
+}
+#computerWins {
+    font-size: 20px;
+    border-bottom: 3px solid #93a8ac;
+    border-radius: 15%;
+    
+}
+
 #gameBoard {
     display: grid;
     height: 300px;

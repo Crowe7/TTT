@@ -101,18 +101,40 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0,0,0,0.1);
 }
 
 .modal-content {
     display: flex;
-    margin: 20% auto;
+    margin: 10% auto;
     flex-direction: column;
     align-items: center;
     background-color: white;
-    width: 50%;
+    width: 15%;
     padding: 30px;
     gap: 15px;
+    border: 1px solid white;
+    border-radius: 30px;
+}
+
+.result-text {
+    font-size: 25px;
+    border-bottom: 2px solid #bfc0c0;
+
+}
+
+
+#resetTwo {
+    background-color: white;
+    border: none;
+    border: 2px solid #3d5a80;
+    padding: 5px;
+}
+
+#resetTwo:hover {
+    background-color: #3d5a80;
+    color: white;
+    cursor: pointer;
 }
 
 .red {
@@ -154,7 +176,7 @@ body {
 }
 .footer i{
     text-decoration: none;
-    color: rgb(34, 33, 33);
+    color: #3d5a80;
     transition: font-size 1s, padding-left 1s;
     font-size: 18px;
 }

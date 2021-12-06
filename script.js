@@ -89,8 +89,6 @@ const gameBoard = (() => {
 
     function setColor(sign, div) {
         let clickedSquare = document.getElementById(div)
-        console.log(div);
-        console.log(sign);
         if(sign === 'X') {
             clickedSquare.classList.add('blue');
         }
@@ -254,11 +252,11 @@ const displayController = (() => {
     function displayReset() {
         p1.textContent = "PLAYER 1";
         p2.textContent = "PLAYER 2";
-        if(p1.classList.contains('on')) {
-            p1.classList.remove('on');
+        if(p1.classList.contains('pone')) {
+            p1.classList.remove('pone');
         }
-        if(p2.classList.contains('on')) {
-            p2.classList.remove('on');
+        if(p2.classList.contains('ptwo')) {
+            p2.classList.remove('ptwo');
         }
         disableButton();
     }

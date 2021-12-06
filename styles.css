@@ -23,14 +23,31 @@ body {
     flex-direction: row;
     gap: 100px;
     height: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
     margin-top: 30px;
 
 }
 .player-buttons button{
     padding: 5px;
     width: 100px;
+    border: 2px solid #bfc0c0;
+    background-color: #f0efeb;
 }
+
+.player-buttons button:disabled {
+    background-color: #f0efeb;
+    color: black;
+    border: 2px solid #bfc0c0;
+}
+
+.player-buttons button:hover {
+    background-color: #dbdad3;
+}
+
+.player-buttons button:disabled:hover {
+    background-color: #f0efeb;
+}
+
 
 #gameBoard {
     display: grid;
@@ -52,10 +69,10 @@ body {
 }
 
 .pone {
-    border: 2px solid #3d5a80;
+    border: 2px solid #3d5a80 !important;
 }
 .ptwo {
-    border: 2px solid #ee6c4d;
+    border: 2px solid #ee6c4d !important;
 }
 .rounds-won {
     display: flex;

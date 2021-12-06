@@ -75,6 +75,7 @@ const gameBoard = (() => {
         }
         sign = playRound.playTurn();
         _gameBoard[this.id - 1] = sign;
+        setColor(sign, this.id);
         displayController.currentPlayer();
         displayCurrentBoard();
         if(checkForWin() === false) {
@@ -82,6 +83,23 @@ const gameBoard = (() => {
         }
 
     }
+
+
+    
+
+    function setColor(sign, div) {
+        let clickedSquare = document.getElementById(div)
+        console.log(div);
+        console.log(sign);
+        if(sign === 'X') {
+            clickedSquare.classList.add('blue');
+        }
+        if(sign ==='O') {
+            clickedSquare.classList.add('red');
+        }
+    }
+
+
 
     function reset() {
         _gameBoard = ["", "", "", "", "", "", "", "",""];
@@ -98,6 +116,8 @@ const gameBoard = (() => {
         }
         else {
             _gameBoard[arrayRandom] = playRound.playTurn();
+            sign = _gameBoard[arrayRandom];
+            setColor(sign, arrayRandom + 1);
             // WAITS HALF A SECOND BEFORE CPU PUTS MOVE DOWN
             if(playRound.fakeThink() === true) {
                 await new Promise(r => setTimeout(r, 500));
@@ -186,12 +206,12 @@ const displayController = (() => {
 
     function currentPlayer() {
         if(gameStatus === false) {
-            p1.classList.add('on');
+            p1.classList.add('pone');
             gameStatus = true;
         }
         else {
-            p2.classList.toggle('on');
-            p1.classList.toggle('on');
+            p2.classList.toggle('ptwo');
+            p1.classList.toggle('pone');
         }
     }
     function displayResult(result) {

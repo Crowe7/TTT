@@ -51,10 +51,12 @@ body {
     background-color: rgb(224, 224, 224);
 }
 
-.on {
-    border: 2px solid blue;
+.pone {
+    border: 2px solid #3d5a80;
 }
-
+.ptwo {
+    border: 2px solid #ee6c4d;
+}
 .rounds-won {
     display: flex;
     flex-direction: row;
@@ -84,8 +86,16 @@ body {
     gap: 15px;
 }
 
+.red {
+   color: #ee6c4d;
+}
 
-
+.blue {
+    color: #3d5a80;
+}
+.dark-blue {
+    color: #98c1d9;
+}
 
 .flex-wrapper{
     display: flex;
